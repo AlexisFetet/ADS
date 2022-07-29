@@ -57,7 +57,7 @@ uint8_t DeviceManager::addDevice(AdsDevice* route)
 bool DeviceManager::removeAdsDevice(uint8_t id)
 {
     bool result{false};
-    uint32_t actual_id = (uint32_t)id << 24;
+    uint32_t actual_id = getDeviceId(id);
     auto it = m_device_map.find(actual_id);
     if(it != m_device_map.end())
     {
@@ -75,7 +75,7 @@ AdsDevice* DeviceManager::getDevice(uint8_t id)
 {
     AdsDevice* device;
 
-    uint32_t actual_id = (uint32_t)id << 24;
+    uint32_t actual_id = getDeviceId(id);
     auto it = m_device_map.find(actual_id);
     if(it != m_device_map.end())
     {
@@ -86,4 +86,15 @@ AdsDevice* DeviceManager::getDevice(uint8_t id)
         throw std::out_of_range("Route was not declared");
     }
     return(device);
+}
+
+uint32_t DeviceManager::getDeviceId(uint32_t id)
+{
+    uint32_t mask{255};
+    return( id | (mask<<24));
+}
+
+uint32_t DeviceManager::getDeviceId(uint8_t id)
+{
+    return(((uint32_t)id) << 24);
 }
