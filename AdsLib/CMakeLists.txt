@@ -9,6 +9,7 @@ set(SOURCES
   RouterAccess.cpp
   RTimeAccess.cpp
   Sockets.cpp
+  DeviceMmanager.cpp
 
   standalone/AdsLib.cpp
   standalone/AmsConnection.cpp
